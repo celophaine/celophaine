@@ -1,0 +1,31 @@
+pragma solidity ^0.4.24;
+
+contract Bank{
+    struct Account{
+        address addr;
+        uint amount;
+    }
+    
+    
+    Account[] public accounts;
+    
+    // instead of having to re-enter an address each time you make a transaction
+    // I put the accounts in an array and used the index number to access the account
+    
+    function addAccount(address _addr, uint _amount) public{
+        accounts.push(Account(_addr, _amount));
+    }
+    
+    function deposit(uint _money, uint index) public {
+        accounts[index].amount += _money;
+    }
+    
+    function withdraw(uint _money, uint index) public {
+        accounts[index].amount -= _money;
+    }
+    
+    function transfer(uint _from, uint _to, uint _money) public{
+        accounts[_from].amount -= _money;
+        accounts[_to].amount += _money;
+    }
+}
